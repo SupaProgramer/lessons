@@ -17,7 +17,10 @@ for (let i=0; i < 2; i++) {
     && a != '' && b != '' && a.length<50) {
         console.log("done");
         appData.expenses[a] = b;
+    } else {
+        i-=1;
     }
+    
 };
 // let i = 0;
 // do {
