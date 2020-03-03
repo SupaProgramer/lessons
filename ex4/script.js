@@ -88,6 +88,8 @@ let appData ={
     }
 };
 start();
-
+if('Ёжик'<'яблоко'){
+    console.log(1);
+}
 
 

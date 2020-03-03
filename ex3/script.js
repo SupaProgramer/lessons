@@ -72,3 +72,4 @@ function chooseOptExpenses() {
             appData.optionalExpenses[i+1] = prompt("Статья необязательных расходов?", "");
     }
 }
+
