@@ -10,6 +10,8 @@ function start() {
     appData.budget = money;
 }
 
+start();
+
 let appData ={
     budget : money,
     timeData : time,
@@ -87,9 +89,7 @@ let appData ={
         }
     }
 };
-start();
-if('Ёжик'<'яблоко'){
-    console.log(1);
-}
+
+
 
 
