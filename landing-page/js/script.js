@@ -131,20 +131,34 @@ window.addEventListener('DOMContentLoaded', function() {
 
             request.send(json);
 
-            request.addEventListener('readystatechange', () => {
-                if(request.readyState < 4) {
-                    statusMessage.innerHTML = message.loading;
-                } else if(request.readyState === 4 && request.status == 200) {
-                    statusMessage.innerHTML = message.success;
-                } else {
-                    statusMessage.innerHTML = message.failure;
+            let promise = new Promise((resolve, reject) => {
+                request.addEventListener('readystatechange', () => {
+                    if(request.readyState < 4) {
+                        resolve();
+                    } else if(request.readyState === 4 && request.status == 200) {
+                        resolve();
+                    } else {
+                        reject();
+                    }
+                });
+                
+                for(let i = 0; i < input.length; i++) {
+                    input[i].value = "";
                 }
             });
-            
-            for(let i = 0; i < input.length; i++) {
-                input[i].value = "";
-            }
+
+            promise
+                    .then(() => {
+                        statusMessage.innerHTML = message.loading;
+                    })
+                    .then(() => {
+                        statusMessage.innerHTML = message.success;
+                    })
+                    .catch(() => {
+                        statusMessage.innerHTML = message.failure;
+                    });
         });
+            
 
         let contactForm = document.querySelector('#form'),
             contactInput = contactForm.getElementsByTagName('input');
@@ -167,18 +181,30 @@ window.addEventListener('DOMContentLoaded', function() {
 
             request.send(json);
 
-            request.addEventListener('readystatechange', () => {
-                if(request.readyState < 4) {
-                    statusMessage.innerHTML = message.loading;
-                } else if(request.readyState === 4 && request.status == 200) {
-                    statusMessage.innerHTML = message.success;
-                } else {
-                    statusMessage.innerHTML = message.failure;
+            let promise = new Promise((resolve, reject) => {
+                request.addEventListener('readystatechange', () => {
+                    if(request.readyState < 4) {
+                        resolve();
+                    } else if(request.readyState === 4 && request.status == 200) {
+                        resolve();
+                    } else {
+                        reject();
+                    }
+                });
+                
+                for(let i = 0; i < contactInput.length; i++) {
+                    contactInput[i].value = "";
                 }
             });
-            
-            for(let i = 0; i < contactInput.length; i++) {
-                contactInput[i].value = "";
-            }
+            promise
+                    .then(() => {
+                        statusMessage.innerHTML = message.loading;
+                    })
+                    .then(() => {
+                        statusMessage.innerHTML = message.success;
+                    })
+                    .catch(() => {
+                        statusMessage.innerHTML = message.failure;
+                    });
         });
 });
