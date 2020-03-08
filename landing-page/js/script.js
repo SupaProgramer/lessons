@@ -99,4 +99,86 @@ window.addEventListener('DOMContentLoaded', function() {
                 document.body.style.overflow = 'hidden';
             });
         });
+
+        // Forms
+
+        let message = {
+            loading: "Загрузка...",
+            success: "Спасибо, скоро мы с вами свяжемся.",
+            failure: "Что-то пошло не так!"
+        };
+
+        let modulForm = document.querySelector('.main-form'),
+            input = modulForm.getElementsByTagName('input'),
+            statusMessage = document.createElement('div');
+        statusMessage.classList.add('status');
+
+        modulForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            modulForm.appendChild(statusMessage);
+
+            let request = new XMLHttpRequest();
+            request.open('POST', 'server.php');
+            request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+
+            let formData = new FormData(modulForm);
+
+            let obj = {};
+            formData.forEach((value, key) =>{
+                obj[key] = value;
+            });
+            let json = JSON.stringify(obj);
+
+            request.send(json);
+
+            request.addEventListener('readystatechange', () => {
+                if(request.readyState < 4) {
+                    statusMessage.innerHTML = message.loading;
+                } else if(request.readyState === 4 && request.status == 200) {
+                    statusMessage.innerHTML = message.success;
+                } else {
+                    statusMessage.innerHTML = message.failure;
+                }
+            });
+            
+            for(let i = 0; i < input.length; i++) {
+                input[i].value = "";
+            }
+        });
+
+        let contactForm = document.querySelector('#form'),
+            contactInput = contactForm.getElementsByTagName('input');
+        
+        contactForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            contactForm.appendChild(statusMessage);
+
+            let request = new XMLHttpRequest();
+            request.open('POST', 'server.php');
+            request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+
+            let formData = new FormData(contactForm);
+
+            let obj = {};
+            formData.forEach((value, key) =>{
+                obj[key] = value;
+            });
+            let json = JSON.stringify(obj);
+
+            request.send(json);
+
+            request.addEventListener('readystatechange', () => {
+                if(request.readyState < 4) {
+                    statusMessage.innerHTML = message.loading;
+                } else if(request.readyState === 4 && request.status == 200) {
+                    statusMessage.innerHTML = message.success;
+                } else {
+                    statusMessage.innerHTML = message.failure;
+                }
+            });
+            
+            for(let i = 0; i < contactInput.length; i++) {
+                contactInput[i].value = "";
+            }
+        });
 });
